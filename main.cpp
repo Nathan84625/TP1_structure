@@ -5,6 +5,28 @@
 
 using namespace std;
 
+
+string ChargerClients(const string nomFichierClients)
+{
+	ifstream entree;
+	string nom;
+	string numeroCivique;
+	string rue;
+	string resultat;
+
+
+	entree.open(nomFichierClients, ios::in);
+	if (entree)
+	{
+		getline(entree, nom);
+		getline(entree, numeroCivique);
+		getline(entree, rue);
+		resultat =  nom  + numeroCivique  + rue;
+	}
+	entree.close();
+	return resultat;
+}
+
 int main()
 {
     Liste listeClient;
@@ -38,7 +60,7 @@ int main()
         switch (choix)
         {
         case 1:
-           resultat = listeClient.ChargerClients(nomFichierClients);
+           resultat = ChargerClients(nomFichierClients);
            cout << resultat << endl;
             break;
         case 2:
@@ -60,4 +82,7 @@ int main()
             cout << "Option invalide, veuillez choisir une option entre 1 et 8" << endl;
         }
     } while (continuer);
+
+
 }
+

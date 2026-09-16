@@ -9,7 +9,6 @@ class Liste {
 public:
 	Liste(); // Constructeur
 	~Liste(); // Destructeur
-	string ChargerClients(string nomFichierClients);
 	void FixerTete();
     void Inserer(const TElement &);
 private:

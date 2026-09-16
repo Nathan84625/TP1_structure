@@ -21,27 +21,6 @@ Liste::~Liste()
 	}
 }
 
-string Liste::ChargerClients(const string nomFichierClients)
-{
-	ifstream entree;
-	string nom;
-	string numeroCivique;
-	string rue;
-	string resultat;
-
-
-	entree.open(nomFichierClients, ios::in);
-	if (entree)
-	{
-		getline(entree, nom);
-		getline(entree, numeroCivique);
-		getline(entree, rue);
-		resultat =  nom  + numeroCivique  + rue;
-	}
-	entree.close();
-	return resultat;
-}
-
 void Liste::FixerTete()
 {
 	Courant = Tete;
