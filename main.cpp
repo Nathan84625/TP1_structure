@@ -31,6 +31,24 @@ Liste<Client> ChargerClients(const string nomFichierClients)
     return listeClient;
 
 }
+
+void SauvegarderClients(Liste<Client> & listeClient, const string nomFichierClients)
+{
+    ofstream sortie;
+
+    sortie.open(nomFichierClients,  fstream::app);
+
+    if(sortie)
+    {
+        for (int i = 0; i < listeClient.Longueur(); i++)
+        {
+            listeClient.FixerPosition(i);
+            sortie << listeClient.ValeurCourante().getNom() << endl;
+            sortie << listeClient.ValeurCourante().getNumero() << endl;
+            sortie << listeClient.ValeurCourante().getAdresse() << endl;
+        }
+    }
+}
 int main()
 {
     Liste<Client> listeClient;
@@ -39,6 +57,9 @@ int main()
     bool continuer = true;
     string nomFichierClients = "CLIENTS.txt";
     string nomFichierCommandes = "COMMANDES.txt";
+    // À enlever éventuellement, sert de test pour vérifier que le fichier se remplis
+    Liste<Client> listeTest;
+    Client clientTest("Test", "123 rue test", 123);
     do
     {
         cout << "Choisisser une option : " << endl;
@@ -73,6 +94,10 @@ int main()
            }
             break;
         case 2:
+        
+        listeTest.Inserer(clientTest);
+        // Sauvegarder la liste des clients et leurs commandes
+            SauvegarderClients(listeTest, nomFichierClients);
             break;
         case 3:
             break;
