@@ -1,41 +1,44 @@
 #include <iostream>
 #include "Liste.h"
+#include "Client.h"
 #include <string>
 #include<fstream>
 
 using namespace std;
 
-
-string ChargerClients(const string nomFichierClients)
+/// @brief Charge les clients à partir d'un fichier.
+/// @param nomFichierClients Le nom du fichier contenant les clients.
+/// @return La liste des cleints chargés à partir du fichier.
+Liste<Client> ChargerClients(const string nomFichierClients)
 {
 	ifstream entree;
 	string nom;
 	string numeroCivique;
 	string rue;
-	string resultat;
-
-
+    Liste<Client> listeClient;
 	entree.open(nomFichierClients, ios::in);
 	if (entree)
 	{
+        while(entree.peek() != EOF)
+        {
 		getline(entree, nom);
 		getline(entree, numeroCivique);
 		getline(entree, rue);
-		resultat =  nom  + numeroCivique  + rue;
-	}
+        listeClient.Inserer(Client(nom, rue, stoi(numeroCivique)));
+        }
 	entree.close();
-	return resultat;
-}
+    }
+    return listeClient;
 
+}
 int main()
 {
-    Liste listeClient;
+    Liste<Client> listeClient;
     string option = "0";
     int choix = 0;
     bool continuer = true;
     string nomFichierClients = "CLIENTS.txt";
     string nomFichierCommandes = "COMMANDES.txt";
-    string resultat = "";
     do
     {
         cout << "Choisisser une option : " << endl;
@@ -60,8 +63,14 @@ int main()
         switch (choix)
         {
         case 1:
-           resultat = ChargerClients(nomFichierClients);
-           cout << resultat << endl;
+        // Charger la liste des clients et leurs commandes
+           listeClient = ChargerClients(nomFichierClients);
+        // À enlever éventuellement, sert de test pour vérifier que la liste est bien remplie
+           for (int i = 0; i < listeClient.Longueur() ; i++)
+           {
+            listeClient.FixerPosition(i);
+            cout << listeClient.ValeurCourante().getNom() << endl;
+           }
             break;
         case 2:
             break;

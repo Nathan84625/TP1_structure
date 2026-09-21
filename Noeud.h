@@ -1,12 +1,11 @@
 #pragma once
-
-typedef int TElement; 
-
+#include "Client.h"
+template <typename Objet>
 class noeud {
 public:
-	TElement element;
+	Objet element;
 	noeud * Suivant;
-	noeud(const TElement & info, noeud * suiv = nullptr) { // constructeur1
+	noeud(const Objet & info, noeud * suiv = nullptr) { // constructeur1
 		element = info;
 		Suivant = suiv;
 	}
