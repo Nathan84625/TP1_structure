@@ -9,13 +9,12 @@ using namespace std;
 /// @brief Charge les clients à partir d'un fichier.
 /// @param nomFichierClients Le nom du fichier contenant les clients.
 /// @return La liste des cleints chargés à partir du fichier.
-Liste<Client> ChargerClients(const string nomFichierClients)
+void ChargerClients(const string nomFichierClients, Liste<Client>& clients)
 {
 	ifstream entree;
 	string nom;
 	string numeroCivique;
 	string rue;
-    Liste<Client> listeClient;
 	entree.open(nomFichierClients, ios::in);
 	if (entree)
 	{
@@ -24,12 +23,10 @@ Liste<Client> ChargerClients(const string nomFichierClients)
 		getline(entree, nom);
 		getline(entree, numeroCivique);
 		getline(entree, rue);
-        listeClient.Inserer(Client(nom, rue, stoi(numeroCivique)));
+        clients.Inserer(Client(nom, rue, stoi(numeroCivique)));
         }
 	entree.close();
     }
-    return listeClient;
-
 }
 
 void SauvegarderClients(Liste<Client> & listeClient, const string nomFichierClients)
@@ -85,7 +82,7 @@ int main()
         {
         case 1:
         // Charger la liste des clients et leurs commandes
-           listeClient = ChargerClients(nomFichierClients);
+           ChargerClients(nomFichierClients,listeClient);
         // À enlever éventuellement, sert de test pour vérifier que la liste est bien remplie
            for (int i = 0; i < listeClient.Longueur() ; i++)
            {
