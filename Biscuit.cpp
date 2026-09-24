@@ -20,7 +20,3 @@ std::string Biscuit::getNom() const
 {
     return nom; // Donne comme résultat le nom du biscuit.
 }
-int Biscuit::getNombre() const
-{
-    return nombre; // Donne comme résultat la quantité du biscuit.
-}
