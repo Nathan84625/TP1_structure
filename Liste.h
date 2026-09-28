@@ -11,7 +11,9 @@ template <typename Objet>
 class Liste {
 public:
 	Liste(); // Constructeur
+    Liste(const Liste<Objet>& autre); // AJOUT : permet de créer une nouvelle Liste comme copie indépendante d'une autre Liste.
 	~Liste(); // Destructeur
+    Liste<Objet>& operator=(const Liste<Objet>& autre); // AJOUT : permet de faire liste1 = liste2 sans partager les mêmes noeuds.
 	void FixerTete();
     void Inserer(const Objet &);
 	Objet ValeurCourante() const;//retourne la valeur d'�l�ment � la position courante.
