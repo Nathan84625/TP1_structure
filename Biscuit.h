@@ -3,7 +3,7 @@
 class Biscuit
 {
 private:
-    std::string nom; // Code du collègue : contient le type du biscuit.
+    std::string nom; // contient le type du biscuit.
     int nombre; // contient la quantité de ce biscuit.
 public:
     Biscuit();  //permet de créer un Biscuit vide.
