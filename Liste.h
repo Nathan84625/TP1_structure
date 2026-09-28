@@ -14,6 +14,7 @@ public:
 	~Liste(); // Destructeur
 	void FixerTete();
     void Inserer(const Objet &);
+	void Supprimer();
 	Objet ValeurCourante() const;//retourne la valeur d'�l�ment � la position courante.
 	bool EstDansListe() const; // retourne vrai si position courante est dans la liste
 	int Longueur() const; // retourne la longueur courante de la liste

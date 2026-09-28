@@ -11,7 +11,7 @@ private:
     // (Liste biscuits;) // Code original.
     string source; // AJOUT : contient le nom du client qui fait la commande.
     string destinataire; // AJOUT : contient le nom du client qui reçoit la commande.
-    
+
 public:
     Commande(); // Code original : constructeur vide.
     Commande(string source, string destinataire); // AJOUT : permet de créer directement une commande avec les deux clients.

@@ -91,15 +91,67 @@ int main()
            }
             break;
         case 2:
-        
-        listeTest.Inserer(clientTest);
+            SauvegarderClients(listeClient, nomFichierClients);
+       // listeTest.Inserer(clientTest);
         // Sauvegarder la liste des clients et leurs commandes
-            SauvegarderClients(listeTest, nomFichierClients);
+           // SauvegarderClients(listeTest, nomFichierClients);
             break;
         case 3:
+        {
+            string nom;
+            string adresse;
+            int numero;
+
+            cout << "Nom du client : ";
+            cin >> nom;
+
+            cout << "Adresse : ";
+            cin >> adresse;
+
+            cout << "Numero civique : ";
+            cin >> numero;
+
+            Client nouveauClient(nom, adresse, numero);
+
+            listeClient.Inserer(nouveauClient);
+
+            cout << "Client ajoute avec succes." << endl;
+
             break;
+        }
         case 4:
+        {
+            string nomRecherche;
+
+            cout << "Nom du client a supprimer : ";
+            cin >> nomRecherche;
+
+            bool trouve = false;
+
+            for (int i = 0; i < listeClient.Longueur(); i++)
+            {
+                listeClient.FixerPosition(i);
+
+                Client client = listeClient.ValeurCourante();
+
+                if (client.getNom() == nomRecherche)
+                {
+                    listeClient.Supprimer();
+
+                    cout << "Client supprime avec succes." << endl;
+
+                    trouve = true;
+                    break;
+                }
+            }
+
+            if (!trouve)
+            {
+                cout << "Client introuvable." << endl;
+            }
+
             break;
+        }
         case 5:
             break;
         case 6:
