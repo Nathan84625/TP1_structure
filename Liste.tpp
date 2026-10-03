@@ -47,7 +47,7 @@ Liste<Objet>::~Liste()
 
 
 
-OPÉRATEUR = AJOUT
+//OPÉRATEUR = AJOUT
 template <typename Objet>
 Liste<Objet>& Liste<Objet>::operator=(const Liste<Objet>& autre)
 {
@@ -96,9 +96,15 @@ void Liste<Objet>::Inserer(const Objet &element)
 }
 
 template <typename Objet>
-Objet Liste<Objet>::ValeurCourante() const {
-	assert(EstDansListe());
-	return Courant->Suivant->element;
+Objet& Liste<Objet>::ValeurCourante() {
+    assert(EstDansListe());
+    return Courant->Suivant->element;
+}
+
+template <typename Objet>
+const Objet& Liste<Objet>::ValeurCourante() const {
+    assert(EstDansListe());
+    return Courant->Suivant->element;
 }
 
 template <typename Objet>
@@ -119,4 +125,15 @@ void Liste<Objet>::FixerPosition(const int pos) {
 	Courant = Tete;
 	for (int i = 0; (Courant != nullptr) && (i < pos); i++)
 		Courant = Courant->Suivant;
+}
+
+template <typename Objet>
+bool Liste<Objet>::Trouver(const Objet & valeur) { // recherche la valeur � partir
+											   // de la position courante
+	while (EstDansListe())
+		if (Courant->Suivant->element == valeur)
+			return true;
+		else
+			Courant = Courant->Suivant;
+	return false;
 }

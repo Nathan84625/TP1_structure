@@ -26,3 +26,7 @@ int Biscuit::getNombre() const
 {
     return nombre; // Donne comme résultat la quantité du biscuit.
 }
+
+void Biscuit::addNombre(int nombre) {
+    this->nombre += nombre;
+}
