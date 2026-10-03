@@ -11,4 +11,5 @@ public:
     ~Biscuit(); // destructeur.
     std::string getNom() const; // AJOUT : permet de connaître le nom parce que nom est private.
     int getNombre() const; // AJOUT : permet de connaître la quantité parce que nombre est private.
+    void addNombre(int nombre);
 };
