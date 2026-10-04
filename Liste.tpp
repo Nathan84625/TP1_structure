@@ -126,6 +126,22 @@ void Liste<Objet>::FixerPosition(const int pos) {
 	for (int i = 0; (Courant != nullptr) && (i < pos); i++)
 		Courant = Courant->Suivant;
 }
+template <typename Objet>
+void Liste<Objet>::Supprimer()
+{
+    assert(EstDansListe());
+
+    noeud<Objet>* aSupprimer = Courant->Suivant;
+
+    Courant->Suivant = aSupprimer->Suivant;
+
+    if (aSupprimer == Queue)
+    {
+        Queue = Courant;
+    }
+
+    delete aSupprimer;
+}
 
 template <typename Objet>
 bool Liste<Objet>::Trouver(const Objet & valeur) { // recherche la valeur � partir

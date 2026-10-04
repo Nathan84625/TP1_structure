@@ -8,17 +8,9 @@ Biscuit2 30
 &
 Roger
 Bob
-Biscuit1 30
-&
-Roger
-Bob
 Biscuit2 30
 &
 Roger
 Bob
-Biscuit1 30
-&
-Roger
-Bob
-Biscuit1 30
+Biscuit2 30
 &

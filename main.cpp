@@ -64,10 +64,10 @@ void ChargerListes(const string nomFichierClients, Liste<Client>& clients, const
 
 void SauvegarderListes(Liste<Client> & listeClient, const string nomFichierClients, const string nomFichierCommandes, Liste<Commande>& commandes)
 {
-    fstream sortie;
+    ofstream  sortie;
 
     sortie.open(nomFichierClients);
-
+    
     if(sortie)
     {
         for (int i = 0; i < listeClient.Longueur(); i++)
@@ -88,12 +88,12 @@ void SauvegarderListes(Liste<Client> & listeClient, const string nomFichierClien
             commandes.FixerPosition(i);
             sortie << commandes.ValeurCourante().getSource() << endl;
             sortie << commandes.ValeurCourante().getDestinataire() << endl;
-            for ( i = 0; i < commandes.ValeurCourante().getBiscuits().Longueur(); i++)
+            for (int j = 0; j < commandes.ValeurCourante().getBiscuits().Longueur(); j++)
             {
                 sortie << commandes.ValeurCourante().getBiscuits().ValeurCourante().getNom() << " " << commandes.ValeurCourante().getBiscuits().ValeurCourante().getNombre() << endl;
-                sortie << "&" << endl;
+                
             }
-            
+            sortie << "&" << endl;
         }
     }
     sortie.close();
@@ -160,8 +160,77 @@ void TrouverBiscuitPopulaire(Liste<Commande>& commandes) {
     cout << "Le biscuit le plus populaire est " << nomBiscuitPopulaire << " avec " << to_string(nombreBiscuitPopulaire) << " biscuits" << endl;
 
 }
+Client CreerClient(Liste<Client>& listeClient)
+{
+    string nom;
+    string adresse;
+    string numeroString;
+    int numero;
+    bool numeroValide = true;
 
+    cout << "Nom du client : ";
+    getline(cin, nom);
 
+    cout << "Adresse : ";
+    getline(cin, adresse);
+
+    do
+    {
+        cout << "Numero civique : ";
+        cin >> numeroString;
+
+        try
+        {
+            numero = std::stoi(numeroString);
+            numeroValide = true;
+        }
+        catch (...)
+        {
+            numero = 0;
+            numeroValide = false;
+            cout << "Veuillez entrer une un nombre valide" << endl;
+        }
+       
+    } while (!numeroValide);
+    
+
+    Client nouveauClient(nom, adresse, numero);
+
+    listeClient.Inserer(nouveauClient);
+
+    return nouveauClient;
+}
+void SupprimerClient(Liste<Client>& listeClient) {
+
+    string nomRecherche;
+
+    cout << "Nom du client a supprimer : ";
+    getline(cin, nomRecherche);
+
+    bool trouve = false;
+
+    for (int i = 0; i < listeClient.Longueur(); i++)
+    {
+        listeClient.FixerPosition(i);
+
+        Client client = listeClient.ValeurCourante();
+
+        if (client.getNom() == nomRecherche)
+        {
+            listeClient.Supprimer();
+
+            cout << "Client supprime avec succes." << endl;
+
+            trouve = true;
+            break;
+        }
+    }
+
+    if (!trouve)
+    {
+        cout << "Client introuvable." << endl;
+    }
+}
 int main()
 {
     Liste<Client> listeClient;
@@ -198,22 +267,23 @@ int main()
         case 1:
         // Charger la liste des clients et leurs commandes
            ChargerListes(nomFichierClients,listeClient,nomFichierCommandes,listeCommande);
-        // À enlever éventuellement, sert de test pour vérifier que la liste est bien remplie
-           for (int i = 0; i < listeCommande.Longueur() ; i++)
-           {
-               listeCommande.FixerPosition(i);
-            cout << listeCommande.ValeurCourante().getSource() << endl;
-           }
             break;
-        case 2:
-        
-        // Sauvegarder la liste des clients et leurs commandes
-            SauvegarderListes(listeClient, nomFichierClients, nomFichierCommandes, listeCommande);
+        case 2:          
+            SauvegarderListes(listeClient, nomFichierClients, nomFichierCommandes, listeCommande);         
             break;
         case 3:
+        {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Sinon le premier getLine() de créerClient obtient un espace
+          Client clientCreer =  CreerClient(listeClient);
+          cout << "Client ajouté avec succes." << endl;
             break;
+        }
         case 4:
+        {
+            SupprimerClient(listeClient);
+
             break;
+        }
         case 5:
             break;
         case 6:

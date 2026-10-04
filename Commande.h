@@ -4,14 +4,17 @@
 #include "Biscuit.h"
 #include "Liste.h" // nécessaire pour utiliser la classe template Liste.
 
+using namespace std;
+
 class Commande
 {
 private:
-    // (Liste client;)
-    std::string source; // MODIFICATION : contient le nom du client qui fait la commande.
-    std::string destinataire; // AJOUT : contient le nom du client qui reçoit la commande.
-    // (Liste biscuits;) 
+
+    
+    string source; // AJOUT : contient le nom du client qui fait la commande.
+    string destinataire; // AJOUT : contient le nom du client qui reçoit la commande.
     Liste<Biscuit> biscuits; // MODIFICATION : <Biscuit> indique que cette Liste contient des objets Biscuit.
+
 public:
     Commande(); // constructeur vide.
     Commande(std::string source, std::string destinataire, Liste<Biscuit> listeBiscuits); // AJOUT : crée une commande avec sa source et son destinataire.

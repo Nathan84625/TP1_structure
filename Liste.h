@@ -16,6 +16,7 @@ public:
     Liste<Objet>& operator=(const Liste<Objet>& autre); // AJOUT : permet de faire liste1 = liste2 sans partager les mêmes noeuds.
 	void FixerTete();
     void Inserer(const Objet &);
+	void Supprimer();
 	Objet& ValeurCourante();//retourne la valeur d'�l�ment � la position courante.
 	const Objet& ValeurCourante() const;
 	bool EstDansListe() const; // retourne vrai si position courante est dans la liste
