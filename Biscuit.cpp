@@ -1,11 +1,11 @@
-#include "Biscuit.h" // Donne accès à la classe Biscuit.
-// (#include <string>) // Code original : pas nécessaire ici puisque Biscuit.h l'inclut déjà.
-// (#include <fstream>) // Code original : pas nécessaire ici car ce fichier ne lit aucun fichier texte.
+#include "Biscuit.h" 
+// (#include <string>) // déjà inclus par Biscuit.h.
+// (#include <fstream>) // inutile ici parce qu'on ne lit pas de fichier dans Biscuit.cpp.
 
 Biscuit::Biscuit()
 {
-    nom = ""; // Initialise le nom à vide parce qu'aucun type n'a encore été donné.
-    nombre = 0; // Initialise la quantité à 0 pour éviter une valeur indéterminée.
+    nom = ""; // Initialise le nom à vide parce qu'aucun biscuit n'a encore été donné.
+    nombre = 0; // Initialise la quantité à 0 pour éviter une valeur inconnue.
 }
 Biscuit::Biscuit(std::string nom, int nombre)
 {
@@ -16,7 +16,17 @@ Biscuit::~Biscuit()
 {
     // Rien à supprimer ici parce que Biscuit ne crée aucune mémoire avec new.
 }
+
 std::string Biscuit::getNom() const
 {
     return nom; // Donne comme résultat le nom du biscuit.
+}
+
+int Biscuit::getNombre() const
+{
+    return nombre; // Donne comme résultat la quantité du biscuit.
+}
+
+void Biscuit::addNombre(int nombre) {
+    this->nombre += nombre;
 }

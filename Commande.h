@@ -1,21 +1,28 @@
-#pragma once // Empêche plusieurs inclusions du même fichier.
-#include <string> // Nécessaire parce que source et destinataire sont du texte.
-#include "Biscuit.h" // Nécessaire parce qu'une commande contient des objets Biscuit.
-// (#include <Client.h>) // Code original : pas nécessaire ici car on conserve seulement le nom des clients.
-// (#include "Liste.h") // Code original : la liste interne de biscuits sera gérée directement dans Commande.
+#pragma once 
+#include <string> 
+#include "Client.h"
+#include "Biscuit.h"
+#include "Liste.h" // nécessaire pour utiliser la classe template Liste.
+
 using namespace std;
+
 class Commande
 {
 private:
-    // (Liste client;) // Code original 
-    // (Liste biscuits;) // Code original.
+
+    
     string source; // AJOUT : contient le nom du client qui fait la commande.
     string destinataire; // AJOUT : contient le nom du client qui reçoit la commande.
+    Liste<Biscuit> biscuits; // MODIFICATION : <Biscuit> indique que cette Liste contient des objets Biscuit.
 
 public:
-    Commande(); // Code original : constructeur vide.
-    Commande(string source, string destinataire); // AJOUT : permet de créer directement une commande avec les deux clients.
-    ~Commande(); // Code original : destructeur.
-    string getSource() const; // AJOUT : permet de connaître le client qui a fait la commande.
-    string getDestinataire() const; // AJOUT : permet de connaître le client qui reçoit la commande.
+    Commande(); // constructeur vide.
+    Commande(std::string source, std::string destinataire, Liste<Biscuit> listeBiscuits); // AJOUT : crée une commande avec sa source et son destinataire.
+    ~Commande(); // destructeur.
+    std::string getSource() const; // AJOUT : permet de connaître le client qui a fait la commande.
+    std::string getDestinataire() const; // AJOUT : permet de connaître le destinataire.
+    void ajouterBiscuit(Biscuit biscuit); // AJOUT : ajoute un Biscuit dans la Liste<Biscuit>.
+    int nombreBiscuits() const; // AJOUT : retourne combien de types de biscuits sont dans la commande.
+    Biscuit getBiscuit(int position); // AJOUT : permet de récupérer un biscuit selon sa position.
+    Liste <Biscuit> getBiscuits();
 };
