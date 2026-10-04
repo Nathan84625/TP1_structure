@@ -4,33 +4,31 @@
 #include "Commande.h"
 #include "Biscuit.h"
 #include <string>
-#include<fstream>
+#include <fstream>
 
 using namespace std;
-
-
 
 /// @brief Charge les clients à partir d'un fichier.
 /// @param nomFichierClients Le nom du fichier contenant les clients.
 /// @return La liste des cleints chargés à partir du fichier.
-void ChargerListes(const string nomFichierClients, Liste<Client>& clients, const string nomFichierCommandes, Liste<Commande>& commandes)
+void ChargerListes(const string nomFichierClients, Liste<Client> &clients, const string nomFichierCommandes, Liste<Commande> &commandes)
 {
-	ifstream entree;
-	string nom;
-	string numeroCivique;
-	string rue;
-	entree.open(nomFichierClients, ios::in);
-	if (entree)
-	{
-        while(entree.peek() != EOF)
+    ifstream entree;
+    string nom;
+    string numeroCivique;
+    string rue;
+    entree.open(nomFichierClients, ios::in);
+    if (entree)
+    {
+        while (entree.peek() != EOF)
         {
-		getline(entree, nom);
-		getline(entree, numeroCivique);
-		getline(entree, rue);
-        if(nom != "" && numeroCivique != "" && rue != "")
-        clients.Inserer(Client(nom, rue, stoi(numeroCivique)));
+            getline(entree, nom);
+            getline(entree, numeroCivique);
+            getline(entree, rue);
+            if (nom != "" && numeroCivique != "" && rue != "")
+                clients.Inserer(Client(nom, rue, stoi(numeroCivique)));
         }
-	entree.close();
+        entree.close();
     }
 
     string nomClientSource;
@@ -46,29 +44,28 @@ void ChargerListes(const string nomFichierClients, Liste<Client>& clients, const
             Liste<Biscuit> biscuits;
             getline(entree, nomClientSource);
             getline(entree, NomClientDestinataire);
-            while (entree.peek() != '&') 
+            while (entree.peek() != '&')
             {
                 entree >> nomBiscuit;
-                entree >>nombreBiscuits;
+                entree >> nombreBiscuits;
                 entree >> ws;
                 biscuits.Inserer(Biscuit(nomBiscuit, stoi(nombreBiscuits)));
             }
             getline(entree, aSkip); // Forcément un &, donc on le lit pour avancer.
 
-            commandes.Inserer(Commande(nomClientSource,NomClientDestinataire,biscuits));
+            commandes.Inserer(Commande(nomClientSource, NomClientDestinataire, biscuits));
         }
         entree.close();
     }
-
 }
 
-void SauvegarderListes(Liste<Client> & listeClient, const string nomFichierClients, const string nomFichierCommandes, Liste<Commande>& commandes)
+void SauvegarderListes(Liste<Client> &listeClient, const string nomFichierClients, const string nomFichierCommandes, Liste<Commande> &commandes)
 {
-    ofstream  sortie;
+    ofstream sortie;
 
     sortie.open(nomFichierClients);
-    
-    if(sortie)
+
+    if (sortie)
     {
         for (int i = 0; i < listeClient.Longueur(); i++)
         {
@@ -91,15 +88,15 @@ void SauvegarderListes(Liste<Client> & listeClient, const string nomFichierClien
             for (int j = 0; j < commandes.ValeurCourante().getBiscuits().Longueur(); j++)
             {
                 sortie << commandes.ValeurCourante().getBiscuits().ValeurCourante().getNom() << " " << commandes.ValeurCourante().getBiscuits().ValeurCourante().getNombre() << endl;
-                
             }
             sortie << "&" << endl;
         }
     }
     sortie.close();
 }
-Biscuit* TrouverBiscuitParNom(string nomATrouver, Liste<Biscuit>& biscuits) {
-    Biscuit* biscuitTrouver = nullptr;
+Biscuit *TrouverBiscuitParNom(string nomATrouver, Liste<Biscuit> &biscuits)
+{
+    Biscuit *biscuitTrouver = nullptr;
     for (int i = 0; i < biscuits.Longueur(); i++)
     {
         biscuits.FixerPosition(i);
@@ -110,23 +107,24 @@ Biscuit* TrouverBiscuitParNom(string nomATrouver, Liste<Biscuit>& biscuits) {
     }
     return biscuitTrouver;
 }
-void TrouverBiscuitPopulaire(Liste<Commande>& commandes) {
-   
+void TrouverBiscuitPopulaire(Liste<Commande> &commandes)
+{
+
     Liste<Biscuit> allBiscuits;
     Liste<string> nomBiscuits;
     Liste<Biscuit> biscuitsCompter;
     string nomBiscuitPopulaire;
     int nombreBiscuitPopulaire = 0;
 
-    //Commence par itérer dans toutes les biscuits utiliser dans une liste
+    // Commence par itérer dans toutes les biscuits utiliser dans une liste
     for (int i = 0; i < commandes.Longueur(); i++)
     {
         commandes.FixerPosition(i);
         Liste<Biscuit> listeBiscuitsTemporaire = commandes.ValeurCourante().getBiscuits();
-        
+
         for (int j = 0; j < listeBiscuitsTemporaire.Longueur(); j++)
         {
-            listeBiscuitsTemporaire.FixerPosition(j); 
+            listeBiscuitsTemporaire.FixerPosition(j);
 
             allBiscuits.Inserer(listeBiscuitsTemporaire.ValeurCourante());
         }
@@ -136,31 +134,32 @@ void TrouverBiscuitPopulaire(Liste<Commande>& commandes) {
     {
         allBiscuits.FixerPosition(i);
 
-        nomBiscuits.FixerTete(); 
-        if (!nomBiscuits.Trouver(allBiscuits.ValeurCourante().getNom())) {
+        nomBiscuits.FixerTete();
+        if (!nomBiscuits.Trouver(allBiscuits.ValeurCourante().getNom()))
+        {
             nomBiscuits.Inserer(allBiscuits.ValeurCourante().getNom());
             biscuitsCompter.Inserer(allBiscuits.ValeurCourante());
         }
-        else {
-            Biscuit* biscuit = TrouverBiscuitParNom(allBiscuits.ValeurCourante().getNom(), biscuitsCompter);
+        else
+        {
+            Biscuit *biscuit = TrouverBiscuitParNom(allBiscuits.ValeurCourante().getNom(), biscuitsCompter);
             biscuit->addNombre(allBiscuits.ValeurCourante().getNombre());
         }
-        
     }
-    // On vérifie qu'elle biscuit a été le plus vendu et on l'affiche 
+    // On vérifie qu'elle biscuit a été le plus vendu et on l'affiche
     for (int i = 0; i < biscuitsCompter.Longueur(); i++)
     {
         biscuitsCompter.FixerPosition(i);
 
-        if (biscuitsCompter.ValeurCourante().getNombre() > nombreBiscuitPopulaire) {
+        if (biscuitsCompter.ValeurCourante().getNombre() > nombreBiscuitPopulaire)
+        {
             nombreBiscuitPopulaire = biscuitsCompter.ValeurCourante().getNombre();
             nomBiscuitPopulaire = biscuitsCompter.ValeurCourante().getNom();
         }
     }
     cout << "Le biscuit le plus populaire est " << nomBiscuitPopulaire << " avec " << to_string(nombreBiscuitPopulaire) << " biscuits" << endl;
-
 }
-Client CreerClient(Liste<Client>& listeClient)
+Client CreerClient(Liste<Client> &listeClient)
 {
     string nom;
     string adresse;
@@ -190,9 +189,8 @@ Client CreerClient(Liste<Client>& listeClient)
             numeroValide = false;
             cout << "Veuillez entrer une un nombre valide" << endl;
         }
-       
+
     } while (!numeroValide);
-    
 
     Client nouveauClient(nom, adresse, numero);
 
@@ -200,7 +198,8 @@ Client CreerClient(Liste<Client>& listeClient)
 
     return nouveauClient;
 }
-void SupprimerClient(Liste<Client>& listeClient) {
+void SupprimerClient(Liste<Client> &listeClient, Liste<Commande> &listeCommande)
+{
 
     string nomRecherche;
 
@@ -217,6 +216,19 @@ void SupprimerClient(Liste<Client>& listeClient) {
 
         if (client.getNom() == nomRecherche)
         {
+            for (int j = 0; j < listeCommande.Longueur(); j++)
+            {
+                listeCommande.FixerPosition(j);
+
+                Commande commande = listeCommande.ValeurCourante();
+
+                if (commande.getSource() == nomRecherche || commande.getDestinataire() == nomRecherche)
+                {
+                    listeCommande.Supprimer();
+                    j--;
+                }
+            }
+
             listeClient.Supprimer();
 
             cout << "Client supprime avec succes." << endl;
@@ -231,6 +243,7 @@ void SupprimerClient(Liste<Client>& listeClient) {
         cout << "Client introuvable." << endl;
     }
 }
+
 int main()
 {
     Liste<Client> listeClient;
@@ -256,31 +269,33 @@ int main()
         cin >> option;
         try
         {
-             choix = std::stoi(option);
+            choix = std::stoi(option);
         }
         catch (...)
         {
-          choix = 0;
+            choix = 0;
         }
         switch (choix)
         {
         case 1:
-        // Charger la liste des clients et leurs commandes
-           ChargerListes(nomFichierClients,listeClient,nomFichierCommandes,listeCommande);
+            // Charger la liste des clients et leurs commandes
+            ChargerListes(nomFichierClients, listeClient, nomFichierCommandes, listeCommande);
             break;
-        case 2:          
-            SauvegarderListes(listeClient, nomFichierClients, nomFichierCommandes, listeCommande);         
+        case 2:
+            SauvegarderListes(listeClient, nomFichierClients, nomFichierCommandes, listeCommande);
             break;
         case 3:
         {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Sinon le premier getLine() de créerClient obtient un espace
-          Client clientCreer =  CreerClient(listeClient);
-          cout << "Client ajouté avec succes." << endl;
+            Client clientCreer = CreerClient(listeClient);
+            cout << "Client ajouté avec succes." << endl;
             break;
         }
         case 4:
         {
-            SupprimerClient(listeClient);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Sinon le premier getLine() de créerClient obtient un espace
+
+            SupprimerClient(listeClient, listeCommande);
 
             break;
         }
@@ -298,7 +313,111 @@ int main()
             cout << "Option invalide, veuillez choisir une option entre 1 et 8" << endl;
         }
     } while (continuer);
-
-
 }
 
+/*
+Main demander par l'énoncer, il utilise le fichier TRANSACTION.TXT pour lancer les commandes. L'autre main va disparraitre quand les fonctionnalités seront terminer
+int main(int argc, char *argv[])
+{
+
+    ifstream entree;
+    string commande;
+    entree.open(argv[1], ios::in);
+    if (entree)
+    {
+        cout << "Fichier ouvert avec succes" << endl;
+        Liste<Client> listeClient;
+        Liste<Commande> listeCommande;
+
+        while (entree >> commande)
+        {
+
+            cout << "Commande : " << commande << endl;
+            if (commande == "O")
+            {
+                string nomFichierClients;
+                string nomFichierCommandes;
+
+                entree >> nomFichierClients;
+                entree >> nomFichierCommandes;
+
+                ChargerListes(nomFichierClients, listeClient, nomFichierCommandes, listeCommande);
+            }
+            else if (commande == "S")
+            {
+                string nomFichierClients;
+                string nomFichierCommandes;
+
+                entree >> nomFichierClients;
+                entree >> nomFichierCommandes;
+
+                SauvegarderListes(listeClient, nomFichierClients, nomFichierCommandes, listeCommande);
+            }
+            else if (commande == "+")
+            {
+                string nomClient;
+                string adresseClient;
+                string numeroClient;
+
+                entree >> nomClient;
+                entree >> adresseClient;
+                entree >> numeroClient;
+                // CreerClient(nomClient, adresseClient, stoi(numeroClient), listeClient);
+            }
+            else if (commande == "-")
+            {
+                string nomClient;
+
+                entree >> nomClient;
+                // SupprimerClient(nomClient, listeClient,listeCommande);
+            }
+            else if (commande == "=")
+            {
+                string nomClientSource;
+                string nomClientDestinataire;
+                Liste<Biscuit> biscuits;
+
+                entree >> nomClientSource;
+                entree >> nomClientDestinataire;
+
+                string nomBiscuit;
+                while (entree >> nomBiscuit && nomBiscuit != "&")
+                {
+                    string nombreBiscuits;
+                    entree >> nombreBiscuits;
+
+                    try
+                    {
+                        biscuits.Inserer(Biscuit(nomBiscuit, stoi(nombreBiscuits)));
+                    }
+                    catch (...)
+                    {
+                        cout << "Nombre de biscuits invalide" << endl;
+                    }
+                }
+            }
+            // AjouterCommande(nomClientSource, nomClientDestinataire, biscuits, listeCommande); Fonction pas encore créer
+
+            else if (commande == "?")
+            {
+                string nomClient;
+                entree >> nomClient;
+                // AfficherCommandes(nomClient, listeCommande); Fonction pas encore créer
+            }
+            else if (commande == "$")
+            {
+                TrouverBiscuitPopulaire(listeCommande);
+            }
+            else
+            {
+                cout << "Commande invalide" << endl;
+            }
+        }
+        entree.close();
+    }
+    else
+    {
+        cout << "Erreur lors de l'ouverture du fichier " << argv[1] << endl;
+    }
+}
+    */
