@@ -1,3 +1,0 @@
-O CLIENTS.txt COMMANDES.txt
-+ David_Gagnon 555 Blvd_Universite
-S CLIENTS.txt COMMANDES.txt
