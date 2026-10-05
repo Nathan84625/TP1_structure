@@ -6,6 +6,7 @@
 #include "Biscuit.h" 
 using namespace std;
 class ListeCommandes
+{
 private:
     Liste<Client> clients; 
     Liste<Commande> commandes; 

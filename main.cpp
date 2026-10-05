@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
                 );
             }
 
-            if (gestion.AjouterCommande(source, destinataire, biscuits)
+            if (gestion.AjouterCommande(source, destinataire, biscuits))
             {
                 cout << "La commande de " << source << " vers " << destinataire  << " a ete ajoutee." << endl;
             }

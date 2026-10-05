@@ -292,6 +292,6 @@ void ListeCommandes::TrouverBiscuitPopulaire()
     cout << "Le biscuit le plus populaire est "
          << nomPopulaire << "." << endl;
 
-    cout << "Le montant total recu pour ce biscuit est de "
-         << quantitePopulaire << " $." << endl;
+    cout << "Le nombre de biscuits vendus est  "
+         << quantitePopulaire << " biscuits." << endl;
 }
