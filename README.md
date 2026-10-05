@@ -3,11 +3,11 @@
 ## Choix de conception
 
 ### 1. Liste chaînée générique avec noeud d'en-tête
-Nous utilisons un `template <typename Objet>` pour réutiliser la même liste
+Nous utilisons un `template <typename Objet>` pour réutiliser la même classe Liste
 pour `Client`, `Commande` et `Biscuit`.
 
 ### 2. `ValeurCourante()` retourne une référence
-J'ai deux surcharges :
+Il y a deux surcharges :
 
 Objet& ValeurCourante();
 const Objet& ValeurCourante() const;
