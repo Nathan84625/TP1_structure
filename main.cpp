@@ -4,22 +4,12 @@
 #include "ListeCommandes.h"
 using namespace std;
 
-int main(int argc, char* argv[])
+int main()
 {
-    if (argc < 2)
-    {
-        cout << "Nom du fichier de transactions manquant." << endl;
-        return 1;
-    }
+   
 
-    ifstream transactions(argv[1]);
-    if (!transactions)
-    {
-        cout << "Erreur lors de l'ouverture du fichier " << argv[1] << endl;
-        return 1;
-    }
-    cout << "Le fichier " << argv[1] << " a ete ouvert." << endl;
-    cout << endl;
+    ifstream transactions("TRANSACTIONS.txt");
+
   
     ListeCommandes gestion;
     string operation;
