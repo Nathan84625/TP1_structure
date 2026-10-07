@@ -20,5 +20,6 @@ public:
     bool SupprimerClient(const string& nomClient); 
     bool AjouterCommande(const string& source, const string& destinataire, Liste<Biscuit>& biscuits); 
     bool AfficherCommandes(const string& nomClient); 
+    void CalculerNombreBiscuits();
     void TrouverBiscuitPopulaire();
 }; 

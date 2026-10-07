@@ -295,3 +295,20 @@ void ListeCommandes::TrouverBiscuitPopulaire()
     cout << "Le nombre de biscuits vendus est  "
          << quantitePopulaire << " biscuits." << endl;
 }
+
+void ListeCommandes::CalculerNombreBiscuits(){
+ int quantiteTotale = 0;
+
+        for (int i = 0; i < commandes.Longueur(); i++)
+        {
+            commandes.FixerPosition(i);
+            Liste<Biscuit> biscuits = commandes.ValeurCourante().getBiscuits();
+            
+            for(int j = 0; j < biscuits.Longueur(); j++){
+
+                biscuits.FixerPosition(j);
+                quantiteTotale += biscuits.ValeurCourante().getNombre();
+            }
+        }
+        cout << "Le nombre total de biscuits vendus est : " << quantiteTotale << endl;
+}

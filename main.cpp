@@ -110,6 +110,11 @@ int main(int argc, char* argv[])
             gestion.TrouverBiscuitPopulaire();
         }
 
+        else if (operation == "#")
+        {
+            gestion.CalculerNombreBiscuits();
+        }
+
         else
         {
             cout << "Operation invalide : "<< operation << endl;
