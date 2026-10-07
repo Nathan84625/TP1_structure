@@ -26,4 +26,5 @@ Principalement utilisé pour m'informer et clarifier certain point. L'ia a été
 #### Traicy
  L’intelligence artificielle a été utilisée comme outil d’aide pour comprendre certaines notions, notamment les listes chaînées et les pointeurs. L’IA a également été utilisée pour corriger et vérifier certaines parties du code. Les solutions proposées ont été relues par l’équipe avant leur intégration.
 #### Adama
+L' intelligence artificielle  je l'ai plus utiliser pour comprendre l'énoncer et utiliser pour corriger les erreurs que j'ai eu en codant et les différents opérations dans la fonction  main().
 
