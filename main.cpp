@@ -8,7 +8,7 @@ int main()
 {
    
 
-    ifstream transactions("TRANSACTIONS.txt");
+    ifstream transactions("TRANSACTION.txt");
 
   
     ListeCommandes gestion;
@@ -111,7 +111,6 @@ int main()
         }
         cout << endl;
     }
-    cout << "Le fichier " << argv[1]<< " a ete lu." << endl;
     transactions.close();
     return 0;
 }
